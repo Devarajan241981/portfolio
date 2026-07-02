@@ -1,8 +1,11 @@
 "use client";
 
 import { motion, useMotionTemplate, useMotionValue, useTransform } from "framer-motion";
+import { useState } from "react";
 import type { MouseEvent, RefObject } from "react";
 import type { projects } from "@/lib/data";
+import { architectures } from "@/lib/architecture";
+import { ProjectArchitectureModal } from "@/components/ProjectArchitectureModal";
 
 export function ProjectCard({
   project,
@@ -18,6 +21,8 @@ export function ProjectCard({
   const xPercent = useTransform(mouseX, (v) => `${v * 100}%`);
   const yPercent = useTransform(mouseY, (v) => `${v * 100}%`);
   const spotlight = useMotionTemplate`radial-gradient(320px circle at ${xPercent} ${yPercent}, rgba(62, 207, 142, 0.10), transparent 70%)`;
+  const [archOpen, setArchOpen] = useState(false);
+  const spec = architectures[project.title];
 
   function handleMouseMove(e: MouseEvent<HTMLDivElement>) {
     if (isDraggingRef?.current) return;
@@ -27,6 +32,7 @@ export function ProjectCard({
   }
 
   return (
+    <>
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -77,7 +83,23 @@ export function ProjectCard({
           ))}
         </ul>
 
-        <div className="relative mt-5 flex flex-wrap gap-2 border-t border-border pt-4">
+        {spec && (
+          <button
+            type="button"
+            onClick={() => setArchOpen(true)}
+            className="relative z-10 mt-4 inline-flex w-fit items-center gap-1.5 rounded-md border border-border-strong px-3 py-1.5 text-xs text-foreground transition-colors hover:border-accent/50 hover:text-accent"
+          >
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+              <circle cx="3" cy="4" r="1.6" fill="currentColor" />
+              <circle cx="13" cy="4" r="1.6" fill="currentColor" />
+              <circle cx="8" cy="12" r="1.6" fill="currentColor" />
+              <path d="M4.4 4.6L7.4 10.8M11.6 4.6L8.6 10.8" stroke="currentColor" strokeWidth="1" />
+            </svg>
+            View architecture
+          </button>
+        )}
+
+        <div className="relative mt-5 flex h-20 flex-wrap content-start gap-2 overflow-hidden border-t border-border pt-4">
           {project.tags.map((tag) => (
             <span
               key={tag}
@@ -89,5 +111,14 @@ export function ProjectCard({
         </div>
       </div>
     </motion.div>
+    {spec && (
+      <ProjectArchitectureModal
+        open={archOpen}
+        onClose={() => setArchOpen(false)}
+        title={project.title}
+        spec={spec}
+      />
+    )}
+    </>
   );
 }

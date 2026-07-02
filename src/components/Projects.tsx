@@ -21,6 +21,7 @@ export function Projects() {
   function onPointerDown(e: PointerEvent<HTMLDivElement>) {
     const el = scrollRef.current;
     if (!el) return;
+    if ((e.target as HTMLElement).closest("button, a")) return;
     isDragging.current = true;
     startX.current = e.clientX;
     startScrollLeft.current = el.scrollLeft;
