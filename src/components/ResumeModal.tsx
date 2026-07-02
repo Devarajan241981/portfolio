@@ -54,7 +54,7 @@ export function ResumeModal({ open, onClose }: { open: boolean; onClose: () => v
     >
       <CodeFall intense />
       <div
-        className="flex max-h-[92vh] w-fit max-w-[95vw] flex-col overflow-hidden rounded-lg border border-border bg-surface"
+        className="relative z-10 flex max-h-[92vh] w-fit max-w-[95vw] flex-col overflow-hidden rounded-lg border border-border bg-surface"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
