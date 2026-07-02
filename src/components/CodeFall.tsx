@@ -47,13 +47,31 @@ const DROPS = Array.from({ length: COUNT }, (_, i) => {
   return { token: TOKENS[i % TOKENS.length], left, duration, delay, opacity, size };
 });
 
-export function CodeFall() {
+const INTENSE_COUNT = 26;
+
+const INTENSE_DROPS = Array.from({ length: INTENSE_COUNT }, (_, i) => {
+  const seed = i + 200;
+  const left = 2 + seededRandom(seed * 1.7 + 1) * 96;
+  const duration = 10 + seededRandom(seed * 5.1 + 3) * 8;
+  // negative delay starts the animation already mid-flight, so the layer
+  // looks fully populated the instant it mounts instead of fading in over time
+  const delay = -seededRandom(seed * 3.3 + 2) * duration;
+  const opacity = 0.32 + seededRandom(seed * 11 + 5) * 0.38;
+  const size = 12 + Math.floor(seededRandom(seed * 13 + 6) * 4);
+  return { token: TOKENS[i % TOKENS.length], left, duration, delay, opacity, size };
+});
+
+export function CodeFall({ intense = false }: { intense?: boolean }) {
+  const drops = intense ? INTENSE_DROPS : DROPS;
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 overflow-hidden">
-      {DROPS.map((d, i) => (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none overflow-hidden ${intense ? "absolute inset-0" : "fixed inset-0"}`}
+    >
+      {drops.map((d, i) => (
         <span
           key={i}
-          className="code-fall-token decor-text font-mono whitespace-nowrap blur-[0.5px]"
+          className={`code-fall-token decor-text font-mono whitespace-nowrap ${intense ? "" : "blur-[0.5px]"}`}
           style={{
             left: `${d.left}%`,
             fontSize: d.size,

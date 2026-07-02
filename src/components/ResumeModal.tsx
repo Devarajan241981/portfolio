@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { profile } from "@/lib/data";
+import { CodeFall } from "@/components/CodeFall";
 
 export function ResumeModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
@@ -51,8 +52,9 @@ export function ResumeModal({ open, onClose }: { open: boolean; onClose: () => v
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
+      <CodeFall intense />
       <div
-        className="flex h-[92vh] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-border bg-surface"
+        className="flex max-h-[92vh] w-fit max-w-[95vw] flex-col overflow-hidden rounded-lg border border-border bg-surface"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-3">
@@ -85,7 +87,7 @@ export function ResumeModal({ open, onClose }: { open: boolean; onClose: () => v
         <iframe
           src={`${profile.resumeUrl}#toolbar=0&navpanes=0&statusbar=0&view=Fit`}
           title="Resume"
-          className="h-full w-full flex-1 bg-white"
+          className="aspect-[17/22] h-[85vh] max-w-full bg-white"
         />
       </div>
     </div>
