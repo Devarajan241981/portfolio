@@ -235,6 +235,71 @@ export const achievements = [
   { text: "University Hackathon Finalist – S.E.A College" },
 ];
 
+export const services = [
+  {
+    title: "Website Builder",
+    description: "Full-stack websites from wireframe to launch, built for speed and clarity.",
+    visual: "website-builder",
+  },
+  {
+    title: "Android App Development",
+    description: "Native and cross-platform Android apps with clean, maintainable code.",
+    visual: "android",
+  },
+  {
+    title: "Software Development",
+    description: "End-to-end software systems — architecture, APIs, and production delivery.",
+    visual: "software",
+  },
+  {
+    title: "Database Design",
+    description: "Schema modeling, relationships, and query optimization for scale.",
+    visual: "database",
+  },
+  {
+    title: "Backend Development",
+    description: "REST APIs, microservices, and integrations built for reliability.",
+    visual: "backend",
+  },
+  {
+    title: "Frontend Development",
+    description: "Responsive, accessible interfaces with modern component architecture.",
+    visual: "frontend",
+  },
+  {
+    title: "UI/UX Design",
+    description: "Wireframes, design systems, and user flows grounded in usability.",
+    visual: "ui-ux",
+  },
+  {
+    title: "Blender 3D",
+    description: "3D modeling, texturing, and rendering for product and concept visuals.",
+    visual: "blender",
+  },
+  {
+    title: "Video Editing",
+    description: "Clean cuts, pacing, and color grading for promo and product videos.",
+    visual: "video-editing",
+  },
+  {
+    title: "Product Building",
+    description: "From idea to shipped product — scoping, building, and iterating fast.",
+    visual: "product-builder",
+  },
+  {
+    title: "Workflow Automation",
+    description: "n8n and Make.com pipelines that connect apps, APIs, and triggers.",
+    visual: "automation",
+  },
+  {
+    title: "AI & LLM Agents",
+    description: "Agent pipelines with tool calling, prompt engineering, and RAG on GPT-4/Gemini.",
+    visual: "ai-agent",
+  },
+] as const;
+
+export type ServiceVisualType = (typeof services)[number]["visual"];
+
 export const publications = [
   {
     title: "Confidential Stock Trading on Encrypted VM's",
