@@ -10,6 +10,7 @@
   --muted-2: #6f6f78;
   --accent: #3ecf8e;
   --accent-foreground: #06120c;
+  --diagram-accent: #4ea8ff;
   --decor-rgb: 255 255 255;
   --grid-line: rgba(255, 255, 255, 0.045);
   --op-mult: 1;
@@ -26,6 +27,7 @@
   --muted-2: #86868d;
   --accent: #0f9d67;
   --accent-foreground: #ffffff;
+  --diagram-accent: #1f6fd6;
   --decor-rgb: 10 10 11;
   --grid-line: rgba(0, 0, 0, 0.05);
   --op-mult: 1.8;

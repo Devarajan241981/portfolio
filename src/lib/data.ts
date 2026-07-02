@@ -154,7 +154,7 @@ export const projects = [
       "Django REST Framework backend and React + Next.js (App Router) frontend, with role-based Customer, Packer, and Driver modules plus an order History module for end-to-end fulfillment tracking.",
       "JWT authentication, Redis caching, and PostgreSQL query optimization to serve high-throughput product catalog and order-tracking APIs at low latency.",
       "Streamlined the pack-and-dispatch workflow from customer order to driver delivery, improving transaction reliability by 6%.",
-      "MongoDB used alongside PostgreSQL for flexible catalog data, with the React/Next.js frontend consuming the DRF API layer end to end.",
+      "React/Next.js frontend consumes the DRF API layer end to end, with PostgreSQL as the single source of truth for catalog and order data.",
     ],
     tags: ["Django REST Framework", "React", "Next.js", "PostgreSQL", "Redis"],
     link: "https://gillorganics.netpy.in/login",

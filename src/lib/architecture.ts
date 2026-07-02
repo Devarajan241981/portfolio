@@ -7,10 +7,20 @@ export type ArchNode = {
   h?: number;
 };
 
+export type Side = "top" | "bottom" | "left" | "right";
+
 export type ArchEdge = {
   id: string;
   from: string;
   to: string;
+  /** Force which side of the node the edge exits/enters, overriding
+   *  auto-detection — needed when a straight auto-routed segment would
+   *  cut through an unrelated node sitting between the two endpoints. */
+  fromSide?: Side;
+  toSide?: Side;
+  /** Extra bend points inserted between the two endpoints, for edges that
+   *  must detour around an unrelated node sitting directly between them. */
+  waypoints?: { x: number; y: number }[];
 };
 
 export type ArchStep = {
@@ -152,18 +162,26 @@ export const architectures: Record<string, ArchitectureSpec> = {
       { id: "api", label: "Django REST API", x: 130, y: 15, w: 105 },
       { id: "packer", label: "Packer Module", x: 260, y: 15, w: 100 },
       { id: "driver", label: "Driver Module", x: 380, y: 15, w: 95 },
-      { id: "postgres", label: "PostgreSQL", x: 130, y: 130, w: 105 },
-      { id: "redis", label: "Redis Cache", x: 260, y: 130, w: 100 },
-      { id: "mongo", label: "MongoDB Catalog", x: 380, y: 130, w: 95 },
+      { id: "postgres", label: "PostgreSQL", x: 195, y: 130, w: 105 },
+      { id: "redis", label: "Redis Cache", x: 325, y: 130, w: 100 },
     ],
     edges: [
       { id: "customer-api", from: "customer", to: "api" },
       { id: "api-packer", from: "api", to: "packer" },
       { id: "packer-driver", from: "packer", to: "driver" },
-      { id: "api-postgres", from: "api", to: "postgres" },
-      { id: "api-redis", from: "api", to: "redis" },
-      { id: "api-mongo", from: "api", to: "mongo" },
-      { id: "driver-api", from: "driver", to: "api" },
+      { id: "api-postgres", from: "api", to: "postgres", fromSide: "bottom", toSide: "top" },
+      { id: "api-redis", from: "api", to: "redis", fromSide: "bottom", toSide: "top" },
+      {
+        id: "driver-api",
+        from: "driver",
+        to: "api",
+        fromSide: "bottom",
+        toSide: "bottom",
+        waypoints: [
+          { x: 427, y: 100 },
+          { x: 182, y: 100 },
+        ],
+      },
     ],
     steps: [
       {
@@ -180,11 +198,6 @@ export const architectures: Record<string, ArchitectureSpec> = {
         caption: "Redis caches high-throughput catalog lookups.",
         activeNodes: ["api", "redis"],
         activeEdges: ["api-redis"],
-      },
-      {
-        caption: "MongoDB serves flexible catalog data alongside Postgres.",
-        activeNodes: ["api", "mongo"],
-        activeEdges: ["api-mongo"],
       },
       {
         caption: "Packer module picks and prepares the farm box.",
